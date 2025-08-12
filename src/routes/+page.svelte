@@ -1,5 +1,5 @@
 <script>
-    @prerender
+    // @prerender
     import { base } from "$app/paths";
     import { onMount } from "svelte";
     let loaded = $state(false);
@@ -16,9 +16,9 @@
     let currentFact = $state(1);
     let totalFacts = $state(0);
 
-    let fact_description = $state("");
-    let fact_title = $state("Loading...");
-    let fact_icon = $state("");
+    let fact_description = $derived(facts[currentFact-1].description);
+    let fact_title = $derived(facts[currentFact-1].title);
+    let fact_icon = $derived(facts[currentFact-1].icon);
     
     onMount(function() {
         fetch(`${base}/facts.json`)
@@ -38,6 +38,23 @@
         font-family: 'Arial', sans-serif;
         text-align: center;
     }
+
+    .fact {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        background-color: #e0f7fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .icon {
+        font-weight: bold;
+        margin-right: 0.5rem;
+    }
+
 </style>
 
 <h1>Save the Sea Turtles</h1>
