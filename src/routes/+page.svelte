@@ -59,3 +59,15 @@
 
 <h1>Save the Sea Turtles</h1>
 <p>All six sea turtle species are threatened or endangered</p>
+
+{#if loaded}
+    {#each facts as fact}
+        <div class="fact">
+            <div class="icon">{fact.icon}</div>
+            <h2>{fact.title}</h2>
+            <p>{fact.description}</p>
+        </div>
+    {/each}
+{:else}
+    <p>Loading facts...</p>
+{/if}
