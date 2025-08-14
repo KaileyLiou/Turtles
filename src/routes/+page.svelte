@@ -37,11 +37,18 @@
     <Banner />
 
 <style>
-    h1 {
+    h1.interactive-title {
         color: #1d411d;
         font-family: 'Nata Sans', sans-serif;
         text-align: center;
         font-size: 40px;
+        transition: color 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+    }
+
+    .interactive-title:hover {
+        color: #467470;
+        transform: scale(1.2);
     }
 
     .fact {
@@ -72,7 +79,7 @@
         font-size: 25px;
         max-width: 1000px;
         color : #467446;
-        margin: 0 auto 20px auto;
+        margin: 0 auto 40px auto;
     }
 
     p {
@@ -84,10 +91,9 @@
         text-align: center;
     }
 
-
 </style>
 
-<h1>Save the Sea Turtles</h1>
+<h1 class="interactive-title">Save the Sea Turtles</h1>
 <p class="heading">All six sea turtle species are threatened or endangered</p>
 
 {#if loaded}
