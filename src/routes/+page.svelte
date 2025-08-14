@@ -39,8 +39,9 @@
 <style>
     h1 {
         color: #1d411d;
-        font-family: 'Arial', sans-serif;
+        font-family: 'Nata Sans', sans-serif;
         text-align: center;
+        font-size: 40px;
     }
 
     .fact {
@@ -62,7 +63,8 @@
     :global(body) {
         background-color: #b9d7aa;
         margin: 0;
-        font-family: 'Segoe UI', sans-serif;
+        font-size: 20px;
+        font-family: 'Nata Sans', sans-serif;
     }
 
     p.heading {
@@ -74,11 +76,12 @@
     }
 
     p {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.5;
-        max-width: 600px;
+        max-width: 800px;
         margin: 10px auto;
         color: #1d411d;
+        text-align: center;
     }
 
 
