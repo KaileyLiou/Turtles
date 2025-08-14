@@ -19,6 +19,8 @@
     let fact_description = $derived(facts[currentFact-1].description);
     let fact_title = $derived(facts[currentFact-1].title);
     let fact_icon = $derived(facts[currentFact-1].icon);
+
+    let currentIndex = $state(0);
     
     onMount(function() {
         fetch(`${base}/facts.json`)
@@ -28,6 +30,12 @@
                 totalFacts = facts.length;
                 loaded = true;
             });
+
+        const interval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % messages.length;
+        }, 3000);
+
+        return () => clearInterval(interval);
     })
 
     import Banner from "$lib/banner.svelte"
@@ -101,7 +109,7 @@
 </style>
 
 <h1 class="interactive-title">Save the Sea Turtles</h1>
-<p class="heading">All sea turtle species are threatened or endangered</p>
+<p class="heading">{messages[currentIndex]}</p>
 
 {#if loaded}
     {#each facts as fact}
