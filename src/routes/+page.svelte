@@ -49,7 +49,7 @@
         align-items: center;
         justify-content: center;
         padding: 20px;
-        background-color: #b9d7aa;
+        background-color: #86a873;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
@@ -58,6 +58,18 @@
         font-weight: bold;
         margin-right: 0.5rem;
     }
+
+    :global(body) {
+        background-color: #b9d7aa;
+        margin: 0;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    p {
+        text-align: center;
+        font-size: 18px;
+    }
+
 
 </style>
 
