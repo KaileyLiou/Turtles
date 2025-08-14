@@ -34,6 +34,8 @@
 
 </script>
 
+    <Banner />
+
 <style>
     h1 {
         color: #b3e5fc;
@@ -47,7 +49,7 @@
         align-items: center;
         justify-content: center;
         padding: 20px;
-        background-color: #e0f7fa;
+        background-color: #b9d7aa;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     }
