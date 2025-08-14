@@ -41,7 +41,7 @@
         color: #1d411d;
         font-family: 'Nata Sans', sans-serif;
         text-align: center;
-        font-size: 40px;
+        font-size: 55px;
         transition: color 0.3s ease, transform 0.3s ease;
         cursor: pointer;
     }
@@ -76,7 +76,7 @@
 
     p.heading {
         text-align: center;
-        font-size: 25px;
+        font-size: 30px;
         max-width: 1000px;
         color : #467446;
         margin: 0 auto 40px auto;
@@ -94,7 +94,7 @@
 </style>
 
 <h1 class="interactive-title">Save the Sea Turtles</h1>
-<p class="heading">All six sea turtle species are threatened or endangered</p>
+<p class="heading">All sea turtle species are threatened or endangered</p>
 
 {#if loaded}
     {#each facts as fact}
