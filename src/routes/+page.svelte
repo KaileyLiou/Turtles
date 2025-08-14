@@ -30,6 +30,8 @@
             });
     })
 
+    import Banner from "$lib/banner.svelte"
+
 </script>
 
 <style>
