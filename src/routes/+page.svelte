@@ -38,7 +38,7 @@
 
 <style>
     h1 {
-        color: #b3e5fc;
+        color: #1d411d;
         font-family: 'Arial', sans-serif;
         text-align: center;
     }
@@ -65,16 +65,27 @@
         font-family: 'Segoe UI', sans-serif;
     }
 
-    p {
+    p.heading {
         text-align: center;
+        font-size: 25px;
+        max-width: 1000px;
+        color : #467446;
+        margin: 0 auto 20px auto;
+    }
+
+    p {
         font-size: 18px;
+        line-height: 1.5;
+        max-width: 600px;
+        margin: 10px auto;
+        color: #1d411d;
     }
 
 
 </style>
 
 <h1>Save the Sea Turtles</h1>
-<p>All six sea turtle species are threatened or endangered</p>
+<p class="heading">All six sea turtle species are threatened or endangered</p>
 
 {#if loaded}
     {#each facts as fact}
