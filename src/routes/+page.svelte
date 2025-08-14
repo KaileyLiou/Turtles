@@ -32,6 +32,13 @@
 
     import Banner from "$lib/banner.svelte"
 
+    let messages = [
+        "All sea turtle species are threatened or endangered.",
+        "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
+        "Plastic pollution is a major threat to sea turtles.",
+        "Fishing nets accidentally trap and drown sea turtles."
+    ];
+
 </script>
 
     <Banner />
