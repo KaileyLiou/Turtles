@@ -1,11 +1,9 @@
-
 <script>
     // @prerender
     import { base } from "$app/paths";
     import { onMount } from "svelte";
     import Banner from "$lib/banner.svelte";
 
-    // Svelte 5 runes reactivity
     let loaded = false;
     let facts = [
         {
@@ -91,11 +89,6 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     } */
 
-    .icon {
-        font-weight: bold;
-        margin-right: 0.5rem;
-    }
-
     :global(body) {
         background-color: #b9d7aa;
         margin: 0;
@@ -118,6 +111,89 @@
         margin: 10px auto;
         color: #1d411d;
         text-align: center;
+    }
+
+    .fact-panel {
+        margin: 20px auto 40px;
+        padding: 30px 50px;
+        max-width: 600px;
+        background-color: #d6e6d3;
+        border-radius: 15px;
+        box-shadow: 0 8px 20px rgba(29, 65, 29, 0.15);
+        text-align: center;
+        font-family: 'Nata Sans', sans-serif;
+        color: #1d411d;
+        transition: transform 0.3s ease;
+    }
+
+    .fact-panel:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px rgba(29, 65, 29, 0.25);
+    }
+
+    .fact-panel h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .fact-panel p {
+        font-size: 1.25rem;
+        line-height: 1.5;
+        margin-bottom: 35px;
+        color: #2f5d2f;
+    }
+
+    .icon {
+        font-size: 3rem;
+        margin-bottom: 35px;
+    }
+
+    .nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    .nav-buttons button {
+        background-color: #467470;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: 600;
+        padding: 12px 24px;
+        border-radius: 30px;
+        font-size: 1rem;
+        box-shadow: 0 4px 10px rgba(70, 116, 112, 0.3);
+    }
+
+    .nav-buttons button:hover {
+        background-color: #1d411d;
+        box-shadow: 0 6px 15px rgba(29, 65, 29, 0.5);
+    }
+
+    .unlock-panel {
+        max-width: 600px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .unlock-panel a {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1d411d;
+        text-decoration: none;
+        background: linear-gradient(90deg, #a8d5a4, #467470);
+        padding: 12px 25px;
+        border-radius: 30px;
+        box-shadow: 0 5px 15px rgba(29, 65, 29, 0.4);
+        transition: background 0.4s ease;
+    }
+
+    .unlock-panel a:hover {
+        background: linear-gradient(90deg, #467470, #1d411d);
+        color: #f0f0f0;
     }
 
 </style>
