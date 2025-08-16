@@ -38,3 +38,46 @@
     }
 
 </script>
+
+<style>
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #eaf8e2;
+        text-align: center;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+        background-color: #76b49d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #5e9a85;
+    }
+
+    .turtle-graphic {
+        width: 200px;
+        height: auto;
+        margin: 20px auto;
+    }
+
+    .quiz-question {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .quiz-options {
+        list-style: none;
+        padding: 0;
+    }
+    
+</style>
