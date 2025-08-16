@@ -1,64 +1,66 @@
+
 <script>
     // @prerender
     import { base } from "$app/paths";
     import { onMount } from "svelte";
-    let loaded = $state(false);
+    import Banner from "$lib/banner.svelte";
 
-    let facts = $state([
+    // Svelte 5 runes reactivity
+    let loaded = false;
+    let facts = [
         {
-            "title": "Loading...",
-            "description": "",
-            "icon": "",
-            "id": 0
+            title: "Loading...",
+            description: "",
+            icon: "",
+            id: 0
         }
-    ]);
+    ];
+    let currentFact = 0;
+    let totalFacts = 0;
+    let viewedFacts = new Set();
+    let unlock = false;
 
-    let currentFact = $state(0);
-    let totalFacts = $state(0);
-
-    // let fact_desc = $derived(facts[currentFact-1].description);
-    // let fact_title = $derived(facts[currentFact-1].title);
-    // let fact_icon = $derived(facts[currentFact-1].icon);
-
-    let viewedFacts = $state(new Set());
-    let unlock = $derived(viewedFacts.size === totalFacts && totalFacts > 0);
-    
-    onMount(() => {
-    fetch(`${base}/facts.json`)
-        .then(res => res.json())
-        .then(data => {
-        facts = data;
-        totalFacts = facts.length;
-        loaded = true;
-        });
-
-    const interval = setInterval(() => {
-        $currentIndex = ($currentIndex + 1) % messages.length;
-    }, 3000);
-
-    return () => clearInterval(interval);
-    });
-
-    import Banner from "$lib/banner.svelte"
-
-    let currentIndex = $state(0);
+    let currentIndex = 0;
     let messages = [
         "All sea turtle species are threatened or endangered.",
         "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
         "Plastic pollution is a major threat to sea turtles.",
         "Fishing nets accidentally trap and drown sea turtles."
     ];
+    let interval;
+
+    onMount(() => {
+        fetch(`${base}/facts.json`)
+            .then(res => res.json())
+            .then(data => {
+                facts = data;
+                totalFacts = data.length;
+                loaded = true;
+            });
+
+        interval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % messages.length;
+        }, 3000);
+
+        return () => clearInterval(interval);
+    });
+
+    $: unlock = viewedFacts.size === totalFacts && totalFacts > 0;
 
     function nextFact() {
-        $currentFact = ($currentFact + 1) % $totalFacts;
-        $viewedFacts = new Set([...$viewedFacts, $currentFact]);
+        if (totalFacts === 0) return;
+        currentFact = (currentFact + 1) % totalFacts;
+        viewedFacts.add(currentFact);
+        // force reactivity for Set
+        viewedFacts = new Set(viewedFacts);
     }
 
     function prevFact() {
-        $currentFact = ($currentFact - 1 + $totalFacts) % $totalFacts;
-        $viewedFacts = new Set([...$viewedFacts, $currentFact]);
+        if (totalFacts === 0) return;
+        currentFact = (currentFact - 1 + totalFacts) % totalFacts;
+        viewedFacts.add(currentFact);
+        viewedFacts = new Set(viewedFacts);
     }
-
 </script>
 
     <Banner />
@@ -120,49 +122,30 @@
 
 </style>
 
+
 <h1 class="interactive-title">Save the Sea Turtles</h1>
 <p class="heading">{messages[currentIndex]}</p>
 
-<!-- {#if loaded}
-    {#each facts as fact}
-        <div class="fact">
-            <div class="icon">{fact_icon}</div>
-            <h2>{fact_title}</h2>
-            <p>{fact_description}</p>
-        </div>
-    {/each}
+{#if loaded}
+    <div class="fact-panel">
+        <h2>{facts[currentFact]?.title}</h2>
+        <p>{facts[currentFact]?.description}</p>
+
+        {#if facts[currentFact]?.icon}
+            <div class="icon">{facts[currentFact].icon}</div>
+        {/if}
+
         <div class="nav-buttons">
             <button on:click={prevFact}>Previous</button>
             <button on:click={nextFact}>Next</button>
         </div>
+    </div>
 
-        {#if $unlock}
-            <a class="unlock-button" href="/interact">Go to Interactive Page →</a>
-        {/if}
+    {#if unlock}
+        <div class="unlock-panel">
+            <a href="/interact">🎉 Go to Interactive Page →</a>
+        </div>
+    {/if}
 {:else}
     <p>Loading facts...</p>
-{/if} -->
-
-{#if loaded}
-  <div class="fact-panel">
-    <h2>{facts[currentFact].title}</h2>
-    <p>{facts[currentFact].description}</p>
-
-    {#if facts[currentFact].icon}
-      <div class="icon">{facts[currentFact].icon}</div>
-    {/if}
-
-    <div class="nav-buttons">
-      <button onclick={prevFact}>Previous</button>
-      <button onclick={nextFact}>Next</button>
-    </div>
-  </div>
-
-  {#if unlock}
-    <div class="unlock-panel">
-      <a href="/interact">🎉 Go to Interactive Page →</a>
-    </div>
-  {/if}
-{:else}
-  <p>Loading facts...</p>
 {/if}
