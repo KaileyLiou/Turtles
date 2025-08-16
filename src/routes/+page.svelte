@@ -21,6 +21,9 @@
     let fact_icon = $derived(facts[currentFact-1].icon);
 
     let currentIndex = $state(0);
+
+    let viewedFacts = $state(new Set());
+    let unlock = $derived(viewedFacts.size === totalFacts && totalFacts > 0);
     
     onMount(function() {
         fetch(`${base}/facts.json`)
@@ -46,6 +49,18 @@
         "Plastic pollution is a major threat to sea turtles.",
         "Fishing nets accidentally trap and drown sea turtles."
     ];
+
+    function nextFact() {
+        if (facts.length === 0) return;
+        currentFact = (currentFact % totalFacts) + 1;
+        viewedFacts = new Set([...viewedFacts, currentFact]);
+    }
+
+    function prevFact() {
+        if (facts.length === 0) return;
+        currentFact = (currentFact - 2 + totalFacts) % totalFacts + 1;
+        viewedFacts = new Set([...viewedFacts, currentFact]);
+    }
 
 </script>
 
@@ -112,13 +127,21 @@
 <p class="heading">{messages[currentIndex]}</p>
 
 {#if loaded}
-    {#each facts as fact}
+    <!-- {#each facts as fact} -->
         <div class="fact">
-            <div class="icon">{fact.icon}</div>
-            <h2>{fact.title}</h2>
-            <p>{fact.description}</p>
+            <div class="icon">{fact_icon}</div>
+            <h2>{fac_title}</h2>
+            <p>{fact_description}</p>
         </div>
-    {/each}
+    <!-- {/each} -->
+        <div class="nav-buttons">
+            <button onclick={prevFact}>Previous</button>
+            <button onclick={nextFact}>Next</button>
+        </div>
+
+        {#if $unlock}
+            <a class="unlock-button" href="/interact">Go to Interactive Page →</a>
+        {/if}
 {:else}
     <p>Loading facts...</p>
 {/if}
