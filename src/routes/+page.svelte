@@ -13,34 +13,35 @@
         }
     ]);
 
-    let currentFact = $state(1);
+    let currentFact = $state(0);
     let totalFacts = $state(0);
 
-    let fact_desc = $derived(facts[currentFact-1].description);
-    let fact_title = $derived(facts[currentFact-1].title);
-    let fact_icon = $derived(facts[currentFact-1].icon);
+    // let fact_desc = $derived(facts[currentFact-1].description);
+    // let fact_title = $derived(facts[currentFact-1].title);
+    // let fact_icon = $derived(facts[currentFact-1].icon);
 
     let viewedFacts = $state(new Set());
     let unlock = $derived(viewedFacts.size === totalFacts && totalFacts > 0);
     
-    onMount(function() {
-        fetch(`${base}/facts.json`)
-            .then(response => response.json())
-            .then(data => {
-                facts = data;
-                totalFacts = facts.length;
-                loaded = true;
-            });
+    onMount(() => {
+    fetch(`${base}/facts.json`)
+        .then(res => res.json())
+        .then(data => {
+        facts = data;
+        totalFacts = facts.length;
+        loaded = true;
+        });
 
-        const interval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % messages.length;
-        }, 3000);
+    const interval = setInterval(() => {
+        $currentIndex = ($currentIndex + 1) % messages.length;
+    }, 3000);
 
-        return () => clearInterval(interval);
-    })
+    return () => clearInterval(interval);
+    });
 
     import Banner from "$lib/banner.svelte"
 
+    let currentIndex = $state(0);
     let messages = [
         "All sea turtle species are threatened or endangered.",
         "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
@@ -48,15 +49,15 @@
         "Fishing nets accidentally trap and drown sea turtles."
     ];
 
-  function nextFact() {
-    currentFact = (currentFact % totalFacts) + 1;
-    viewedFacts = new Set([...$viewedFacts, currentFact]);
-  }
+    function nextFact() {
+        $currentFact = ($currentFact + 1) % $totalFacts;
+        $viewedFacts = new Set([...$viewedFacts, $currentFact]);
+    }
 
-  function prevFact() {
-    currentFact = (currentFact - 2 + totalFacts) % totalFacts + 1;
-    viewedFacts = new Set([...$viewedFacts, currentFact]);
-}
+    function prevFact() {
+        $currentFact = ($currentFact - 1 + $totalFacts) % $totalFacts;
+        $viewedFacts = new Set([...$viewedFacts, $currentFact]);
+    }
 
 </script>
 
@@ -142,21 +143,22 @@
     <p>Loading facts...</p>
 {/if} -->
 
-{#if $loaded}
+{#if loaded}
   <div class="fact-panel">
-    <h2>{fact_title}</h2>
-    <p>{fact_desc}</p>
-    {#if fact_icon}
-      <div class="icon">{fact_icon}</div>
+    <h2>{facts[currentFact].title}</h2>
+    <p>{facts[currentFact].description}</p>
+
+    {#if facts[currentFact].icon}
+      <div class="icon">{facts[currentFact].icon}</div>
     {/if}
 
     <div class="nav-buttons">
-      <button on:click={prevFact}>Previous</button>
-      <button on:click={nextFact}>Next</button>
+      <button onclick={prevFact}>Previous</button>
+      <button onclick={nextFact}>Next</button>
     </div>
   </div>
 
-  {#if $unlock}
+  {#if unlock}
     <div class="unlock-panel">
       <a href="/interact">🎉 Go to Interactive Page →</a>
     </div>
