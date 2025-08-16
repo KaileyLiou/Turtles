@@ -16,11 +16,9 @@
     let currentFact = $state(1);
     let totalFacts = $state(0);
 
-    let fact_description = $derived(facts[currentFact-1].description);
+    let fact_desc = $derived(facts[currentFact-1].description);
     let fact_title = $derived(facts[currentFact-1].title);
     let fact_icon = $derived(facts[currentFact-1].icon);
-
-    let currentIndex = $state(0);
 
     let viewedFacts = $state(new Set());
     let unlock = $derived(viewedFacts.size === totalFacts && totalFacts > 0);
@@ -50,17 +48,15 @@
         "Fishing nets accidentally trap and drown sea turtles."
     ];
 
-    function nextFact() {
-        if (facts.length === 0) return;
-        currentFact = (currentFact % totalFacts) + 1;
-        viewedFacts = new Set([...viewedFacts, currentFact]);
-    }
+  function nextFact() {
+    currentFact = (currentFact % totalFacts) + 1;
+    viewedFacts = new Set([...$viewedFacts, currentFact]);
+  }
 
-    function prevFact() {
-        if (facts.length === 0) return;
-        currentFact = (currentFact - 2 + totalFacts) % totalFacts + 1;
-        viewedFacts = new Set([...viewedFacts, currentFact]);
-    }
+  function prevFact() {
+    currentFact = (currentFact - 2 + totalFacts) % totalFacts + 1;
+    viewedFacts = new Set([...$viewedFacts, currentFact]);
+}
 
 </script>
 
@@ -81,7 +77,7 @@
         transform: scale(1.2);
     }
 
-    .fact {
+    /* .fact {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -90,7 +86,7 @@
         background-color: #86a873;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    }
+    } */
 
     .icon {
         font-weight: bold;
@@ -126,7 +122,7 @@
 <h1 class="interactive-title">Save the Sea Turtles</h1>
 <p class="heading">{messages[currentIndex]}</p>
 
-{#if loaded}
+<!-- {#if loaded}
     {#each facts as fact}
         <div class="fact">
             <div class="icon">{fact_icon}</div>
@@ -144,4 +140,27 @@
         {/if}
 {:else}
     <p>Loading facts...</p>
+{/if} -->
+
+{#if $loaded}
+  <div class="fact-panel">
+    <h2>{fact_title}</h2>
+    <p>{fact_desc}</p>
+    {#if fact_icon}
+      <div class="icon">{fact_icon}</div>
+    {/if}
+
+    <div class="nav-buttons">
+      <button on:click={prevFact}>Previous</button>
+      <button on:click={nextFact}>Next</button>
+    </div>
+  </div>
+
+  {#if $unlock}
+    <div class="unlock-panel">
+      <a href="/interact">🎉 Go to Interactive Page →</a>
+    </div>
+  {/if}
+{:else}
+  <p>Loading facts...</p>
 {/if}
