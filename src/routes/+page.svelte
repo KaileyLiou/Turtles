@@ -184,15 +184,14 @@
         font-weight: 700;
         color: #1d411d;
         text-decoration: none;
-        background: linear-gradient(90deg, #a8d5a4, #467470);
+        background: linear-gradient(90deg, #a8d5a4, #7d937c);
         padding: 12px 25px;
         border-radius: 30px;
         box-shadow: 0 5px 15px rgba(29, 65, 29, 0.4);
-        transition: background 0.4s ease;
     }
 
     .unlock-panel a:hover {
-        background: linear-gradient(90deg, #467470, #1d411d);
+        background: linear-gradient(90deg, #467470, #4c664c);
         color: #f0f0f0;
     }
 
