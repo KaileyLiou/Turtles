@@ -24,4 +24,17 @@
             answer: 3
         }
     ];
+
+    function answerQuestion(option) {
+        if(option === quizQuestions[step].answer) {
+            score++;
+        }
+        step++;
+    }
+
+    function resetQuiz() {
+        score = 0;
+        step = 0;
+    }
+
 </script>
