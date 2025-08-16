@@ -116,7 +116,7 @@
     .fact-panel {
         margin: 20px auto 40px;
         padding: 30px 50px;
-        max-width: 600px;
+        max-width: 700px;
         background-color: #d6e6d3;
         border-radius: 15px;
         box-shadow: 0 8px 20px rgba(29, 65, 29, 0.15);
@@ -144,17 +144,6 @@
         color: #2f5d2f;
     }
 
-    .icon {
-        font-size: 3rem;
-        margin-bottom: 35px;
-    }
-
-    .nav-buttons {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-    }
-
     .nav-buttons button {
         background-color: #467470;
         color: white;
@@ -168,13 +157,24 @@
         box-shadow: 0 4px 10px rgba(70, 116, 112, 0.3);
     }
 
+    .icon {
+        font-size: 3rem;
+        margin-bottom: 35px;
+    }
+
+    .nav-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
     .nav-buttons button:hover {
         background-color: #1d411d;
         box-shadow: 0 6px 15px rgba(29, 65, 29, 0.5);
     }
 
     .unlock-panel {
-        max-width: 600px;
+        max-width: 700px;
         margin: 20px auto;
         text-align: center;
     }
