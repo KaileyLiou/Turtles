@@ -127,16 +127,16 @@
 <p class="heading">{messages[currentIndex]}</p>
 
 {#if loaded}
-    <!-- {#each facts as fact} -->
+    {#each facts as fact}
         <div class="fact">
             <div class="icon">{fact_icon}</div>
-            <h2>{fac_title}</h2>
+            <h2>{fact_title}</h2>
             <p>{fact_description}</p>
         </div>
-    <!-- {/each} -->
+    {/each}
         <div class="nav-buttons">
-            <button onclick={prevFact}>Previous</button>
-            <button onclick={nextFact}>Next</button>
+            <button on:click={prevFact}>Previous</button>
+            <button on:click={nextFact}>Next</button>
         </div>
 
         {#if $unlock}
