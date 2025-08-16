@@ -70,14 +70,23 @@
         margin: 20px auto;
     }
 
-    .quiz-question {
-        font-size: 20px;
-        margin-bottom: 10px;
-    }
-
-    .quiz-options {
-        list-style: none;
-        padding: 0;
-    }
-    
 </style>
+
+<div class="container">
+    <svelte:head>
+        <title>Sea Turtle Quiz</title>
+        <link rel="icon" href="/path/to/turtle-icon.png" />
+    </svelte:head>
+
+    {#if step < quizQuestions.length}
+        <h2>{quizQuestions[step].question}</h2>
+            {#each quizQuestions[step].options as option, index}
+                <li>
+                    <button on:click={() => answerQuestion(index)}>{option}</button>
+                </li>
+            {/each}
+    {:else}
+        <h2>Your Score: {score} out of {quizQuestions.length}</h2>
+        <button on:click={resetQuiz}>Restart Quiz</button>
+    {/if}
+</div>
