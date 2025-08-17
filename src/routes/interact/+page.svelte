@@ -152,6 +152,9 @@
     {:else}
         <h2>Your Score: {score} out of {quizQuestions.length}</h2>
         <button on:click={resetQuiz}>Restart Quiz</button>
-        <a href="/">← Back Home</a>
+    <script context="module">
+    import { base } from "$app/paths";
+    </script>
+    <a href="{base}/">← Back Home</a>
     {/if}
 </div>
