@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Lifespan",
+        "description": "Sea turtles can live for more than 50 years in the wild.",
+        "icon": "🌍"
+    },
+    {
+        "title": "Color",
+        "description": "Green sea turtles are named for the greenish color of their fat, which is a result of their herbivorous diet of seagrass and algae.",
+        "icon": "🌿"
+    },
+    {
+        "title": "Shell",
+        "description": "Unlike other turtles, sea turtles cannot retract their flippers and head into their shells.",
+        "icon": "🐢"
+    },
+    {
+        "title": "Sleep Habits",
+        "description": "Many sea turtles sleep underwater, holding their breath for up to 4-7 hours. Many also spend their entire life at sea, only returning to beaches when they need to lay their eggs.",
+        "icon": "🌙"
+    }
+]
