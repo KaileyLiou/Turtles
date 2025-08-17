@@ -2,6 +2,8 @@
     let score = 0;
     let step = 0;
     
+    import confetti from 'canvas-confetti';
+
     const quizQuestions = [
         {
             question: "Which sea turtle species is the largest?",
@@ -30,6 +32,15 @@
             score++;
         }
         step++;
+
+        if (step === quizQuestions.length && score === quizQuestions.length) {
+            confetti({
+                particleCount: 150,
+                spread: 90,
+                origin: { y: 0.6 }
+            });
+        }
+
     }
 
     function resetQuiz() {

@@ -59,6 +59,7 @@
         viewedFacts.add(currentFact);
         viewedFacts = new Set(viewedFacts);
     }
+
 </script>
 
     <Banner />
