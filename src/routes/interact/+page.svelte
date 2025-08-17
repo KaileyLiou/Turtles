@@ -72,20 +72,21 @@
 
 </style>
 
-<div class="container">
-    <svelte:head>
-        <title>Sea Turtle Quiz</title>
-        <link rel="icon" href="/path/to/turtle-icon.png" />
-    </svelte:head>
 
+<svelte:head>
+    <title>Sea Turtle Quiz</title>
+    <link class="turtle-graphic" rel="icon" href="/path/to/turtle-icon.png" />
+</svelte:head>
+
+<div class="container">
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
-            {#each quizQuestions[step].options as option}
-                <button on:click={() => answerQuestion(option)}>{option}</button>
-            {/each}
+        {#each quizQuestions[step].options as option}
+            <button on:click={() => answerQuestion(option)}>{option}</button>
+        {/each}
     {:else}
         <h2>Your Score: {score} out of {quizQuestions.length}</h2>
         <button on:click={resetQuiz}>Restart Quiz</button>
-        <a href="/"></a>← Back Home</a>
+        <a href="/">← Back Home</a>
     {/if}
 </div>
