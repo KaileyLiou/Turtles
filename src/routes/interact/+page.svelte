@@ -3,6 +3,7 @@
     let step = 0;
     
     import confetti from 'canvas-confetti';
+    import Banner from "$lib/banner.svelte";
 
     const quizQuestions = [
         {
@@ -49,6 +50,8 @@
     }
 
 </script>
+
+  <Banner />
 
 <style>
     .container {
