@@ -2,7 +2,6 @@
     // @prerender
     import { base } from "$app/paths";
     import { onMount } from "svelte";
-    import Banner from "$lib/banner.svelte";
 
     let loaded = false;
     let facts = [
@@ -27,6 +26,8 @@
     ];
     let interval;
 
+    import Banner from "$lib/banner.svelte";
+
     onMount(() => {
         fetch(`${base}/facts.json`)
             .then(res => res.json())
@@ -49,7 +50,6 @@
         if (totalFacts === 0) return;
         currentFact = (currentFact + 1) % totalFacts;
         viewedFacts.add(currentFact);
-        // force reactivity for Set
         viewedFacts = new Set(viewedFacts);
     }
 
