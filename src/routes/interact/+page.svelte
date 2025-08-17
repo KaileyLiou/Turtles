@@ -139,7 +139,7 @@
 
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
-    <img src="/turtle.png" alt="Turtle" class="turtle-graphic"/>
+    <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic"/>
 
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
