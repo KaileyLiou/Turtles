@@ -1,7 +1,8 @@
 <script>
+
+    import { base } from "$app/paths";
     let score = 0;
     let step = 0;
-    
     import confetti from 'canvas-confetti';
     import Banner from "$lib/banner.svelte";
 
@@ -152,9 +153,6 @@
     {:else}
         <h2>Your Score: {score} out of {quizQuestions.length}</h2>
         <button on:click={resetQuiz}>Restart Quiz</button>
-    <script context="module">
-    import { base } from "$app/paths";
-    </script>
-    <a href="{base}/">← Back Home</a>
+        <a href="{base}/">← Back Home</a>
     {/if}
 </div>
