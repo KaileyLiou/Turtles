@@ -74,12 +74,12 @@
         transition: background-color 0.2s ease;
     }
 
-    /* .options {
+    .options {
         display: flex;
         flex-direction: column;
         gap: 15px;
         margin-bottom: 30px;
-    } */
+    }
 
     button:hover {
         background-color: #5e9a85;
@@ -113,9 +113,12 @@
 
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
-        {#each quizQuestions[step].options as option}
-            <button on:click={() => answerQuestion(option)}>{option}</button>
-        {/each}
+        <div class="options">
+            {#each quizQuestions[step].options as option, index}
+                <button on:click={() => answerQuestion(index)}>{option}</button>
+            {/each}
+        </div>
+
     {:else}
         <h2>Your Score: {score} out of {quizQuestions.length}</h2>
         <button on:click={resetQuiz}>Restart Quiz</button>
