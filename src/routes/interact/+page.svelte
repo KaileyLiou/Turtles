@@ -42,12 +42,19 @@
 <style>
     .container {
         max-width: 800px;
-        margin: 0 auto;
-        padding: 20px;
+        margin: 60px auto;
+        padding: 30px;
         background-color: #eaf8e2;
         text-align: center;
         border-radius: 10px;
+        font-family: 'Nata Sans', sans-serif;
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+        color: #1d411d;
+        margin-bottom: 20px;
+        font-size: 28px;
     }
 
     button {
@@ -58,7 +65,15 @@
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
+        transition: background-color 0.2s ease;
     }
+
+    /* .options {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+    } */
 
     button:hover {
         background-color: #5e9a85;
@@ -68,6 +83,15 @@
         width: 200px;
         height: auto;
         margin: 20px auto;
+        display: block;
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #467446;
+        font-weight: bold;
     }
 
 </style>
@@ -75,7 +99,7 @@
 
 <svelte:head>
     <title>Sea Turtle Quiz</title>
-    <link class="turtle-graphic" rel="icon" href="/path/to/turtle-icon.png" />
+    <link class="turtle-graphic" rel="icon" src="/turtle.png"/>
 </svelte:head>
 
 <div class="container">
