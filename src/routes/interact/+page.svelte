@@ -53,7 +53,7 @@
 
     h2 {
         color: #1d411d;
-        margin-bottom: 20px;
+        margin-bottom: 50px;
         font-size: 30px;
     }
 
@@ -67,11 +67,14 @@
         background-color: #76b49d;
         color: white;
         border: none;
-        padding: 10px 20px;
+        padding: 15px 20px;
         border-radius: 5px;
         cursor: pointer;
         font-size: 16px;
         transition: background-color 0.2s ease;
+        font-family: 'Nata Sans', sans-serif;
+        font-size: 20px;
+        margin: 5px;
     }
 
     .options {
