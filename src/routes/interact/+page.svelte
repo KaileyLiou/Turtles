@@ -93,7 +93,20 @@
         height: auto;
         margin: 20px auto;
         display: block;
+        animation: swim 3s ease-in-out infinite alternate;
     }
+
+    @keyframes swim {
+        0% {
+            transform: translate(0, 0) rotate(0deg);
+        }
+        50% {
+            transform: translate(20px, -5px) rotate(3deg);
+        }
+        100% {
+            transform: translate(-20px, 5px) rotate(-3deg);
+    }
+}
 
     a {
         display: inline-block;
