@@ -219,7 +219,7 @@
 
     {#if unlock}
         <div class="unlock-panel">
-            <a href="/interact">🎉 Go to Interactive Page →</a>
+            <a href="{base}/interact">🎉 Go to Interactive Page →</a>
         </div>
     {/if}
 {:else}
