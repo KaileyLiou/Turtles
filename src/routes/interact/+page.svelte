@@ -80,13 +80,12 @@
 
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
-            {#each quizQuestions[step].options as option, index}
-                <li>
-                    <button on:click={() => answerQuestion(index)}>{option}</button>
-                </li>
+            {#each quizQuestions[step].options as option}
+                <button on:click={() => answerQuestion(option)}>{option}</button>
             {/each}
     {:else}
         <h2>Your Score: {score} out of {quizQuestions.length}</h2>
         <button on:click={resetQuiz}>Restart Quiz</button>
+        <a href="/"></a>← Back Home</a>
     {/if}
 </div>
