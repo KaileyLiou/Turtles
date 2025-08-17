@@ -54,7 +54,13 @@
     h2 {
         color: #1d411d;
         margin-bottom: 20px;
-        font-size: 28px;
+        font-size: 30px;
+    }
+
+    h1 {
+        color: #1d411d;
+        margin-bottom: 20px;
+        font-size: 45px;
     }
 
     button {
@@ -98,11 +104,13 @@
 
 
 <svelte:head>
-    <title>Sea Turtle Quiz</title>
-    <link class="turtle-graphic" rel="icon" src="/turtle.png"/>
+    <title>Sea Turtles</title>
 </svelte:head>
 
 <div class="container">
+    <h1>Sea Turtle Quiz</h1>
+    <img src="/turtle.png" alt="Turtle" class="turtle-graphic"/>
+
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
         {#each quizQuestions[step].options as option}
