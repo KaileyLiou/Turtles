@@ -103,7 +103,6 @@
         background-color: #5e9a85;
     }
 
-
     .turtle-div {
         display: inline-block;
     }
@@ -118,8 +117,8 @@
     }
 
     .turtle-graphic:hover {
-        transform: scale(1.1);
-        filter: brightness(1.2);
+        transform: scale(2);
+        filter: brightness(1.5);
     }
 
     @keyframes swim {
