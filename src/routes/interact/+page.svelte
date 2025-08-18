@@ -123,11 +123,14 @@
         }
     }
 
-    .turtle-graphic:hover {
-        animation-play-state: paused;
+    .turtle-div {
+        display: inline-block;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .turtle-div:hover {
         transform: scale(1.1);
         filter: brightness(1.2);
-        transition: transform 0.3s ease, filter 0.3s ease;
     }
 
     a {
@@ -147,7 +150,9 @@
 
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
-    <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic"/>
+    <div class="turtle-div">
+        <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic"/>
+    </div>
 
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
