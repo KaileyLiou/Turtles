@@ -4,7 +4,7 @@ This is a website made with SvelteKit about endangered sea turtles. The title on
 
 There is a facts panel, and after users cycle through all the facts, a button is revealed to unlock the interactive page. 
 
-The interactive page has a quiz testing users on facts about sea turtles. There is also a dynamic turtle swimming back and forth. To do this, I used keyframes with translations and rotations. When a user hovers over the turtle, it enlarges and becomes brighter. I did this using a CSS hover effect with scale and brightness.
+The interactive page has a quiz testing users on facts about sea turtles. There is also a dynamic turtle swimming back and forth. To do this, I used keyframes with translations and rotations. When a user hovers over the turtle, it glows. I did this using a CSS hover effect with brightness.
 
 The random chance rare event I incorporated in my project is confetti. If a user gets all four questions correct on the quiz, confetti will pop. 
 
