@@ -120,8 +120,14 @@
         }
         100% {
             transform: translate(-20px, 5px) rotate(-3deg);
+        }
     }
-}
+
+    .turtle-graphic:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
 
     a {
         display: inline-block;
