@@ -103,14 +103,9 @@
         background-color: #5e9a85;
     }
 
+
     .turtle-div {
         display: inline-block;
-        transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .turtle-div:hover {
-        transform: scale(1.1);
-        filter: brightness(1.2);
     }
 
     .turtle-graphic {
@@ -119,6 +114,12 @@
         margin: 20px auto;
         display: block;
         animation: swim 3s ease-in-out infinite alternate;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .turtle-graphic:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
     }
 
     @keyframes swim {
