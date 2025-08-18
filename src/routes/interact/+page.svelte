@@ -117,7 +117,6 @@
     }
 
     .turtle-graphic:hover {
-        transform: scale(2);
         filter: brightness(1.5);
     }
 
