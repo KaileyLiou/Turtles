@@ -103,6 +103,16 @@
         background-color: #5e9a85;
     }
 
+    .turtle-div {
+        display: inline-block;
+        transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .turtle-div:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+    }
+
     .turtle-graphic {
         width: 200px;
         height: auto;
@@ -121,16 +131,6 @@
         100% {
             transform: translate(-20px, 5px) rotate(-3deg);
         }
-    }
-
-    .turtle-div {
-        display: inline-block;
-        transition: transform 0.3s ease, filter 0.3s ease;
-    }
-
-    .turtle-div:hover {
-        transform: scale(1.1);
-        filter: brightness(1.2);
     }
 
     a {
