@@ -124,6 +124,7 @@
     }
 
     .turtle-graphic:hover {
+        animation-play-state: paused;
         transform: scale(1.1);
         filter: brightness(1.2);
         transition: transform 0.3s ease, filter 0.3s ease;
