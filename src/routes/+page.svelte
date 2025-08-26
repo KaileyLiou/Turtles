@@ -1,54 +1,105 @@
-<!-- <script lang="ts">
-import { base } from "$app/paths";
-import { onMount } from "svelte";
-import Banner from "$lib/banner.svelte";
+<script lang="ts">
+    import { state, derived, onMount } from 'svelte';
+    import { base } from '$app/paths';
+    import Banner from '$lib/banner.svelte';
 
-let loaded = false;
-$state facts = [
-    { title: "Loading...", description: "", icon: "", id: 0 }
-];
-$state currentFact = 0;
-$state viewedFacts = new Set();
-let totalFacts = 0;
-$derived unlock = viewedFacts.size === totalFacts && totalFacts > 0;
+    const loaded = state(false);
 
-let currentIndex = 0;
-let messages = [
-    "All sea turtle species are threatened or endangered.",
-    "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
-    "Plastic pollution is a major threat to sea turtles.",
-    "Fishing nets accidentally trap and drown sea turtles."
-];
-let interval;
+    const facts = state([{ title: "Loading...", description: "", icon: "", id: 0 }]);
+    const currentFact = state(0);
+
+    const viewedFacts = state(new Set<number>());
+    const totalFacts = state(0);
+
+    const unlock = derived(() =>
+        viewedFacts().size === totalFacts() && totalFacts() > 0
+    );
+
+    const currentIndex = state(0);
+    const messages = [
+        "All sea turtle species are threatened or endangered.",
+        "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
+        "Plastic pollution is a major threat to sea turtles.",
+        "Fishing nets accidentally trap and drown sea turtles."
+    ];
+
+    let interval: ReturnType<typeof setInterval>;
+
+    onMount(() => {
+        fetch(`${base}/facts.json`)
+            .then(res => res.json())
+            .then(data => {
+                facts.set(data);
+                totalFacts.set(data.length);
+                loaded.set(true);
+            });
+
+        interval = setInterval(() => {
+            currentIndex.update(i => (i + 1) % messages.length);
+        }, 3000);
+
+        return () => clearInterval(interval);
+    });
+
+    function nextFact() {
+        if (totalFacts() === 0) return;
+        const next = (currentFact() + 1) % totalFacts();
+        currentFact.set(next);
+
+        const updated = new Set(viewedFacts());
+        updated.add(next);
+        viewedFacts.set(updated);
+    }
+
+    function prevFact() {
+        if (totalFacts() === 0) return;
+        const prev = (currentFact() - 1 + totalFacts()) % totalFacts();
+        currentFact.set(prev);
+
+        const updated = new Set(viewedFacts());
+        updated.add(prev);
+        viewedFacts.set(updated);
+    }
+</script>
+
+<h1 class="interactive-title">Save the Sea Turtles</h1>
+<p class="heading">{messages[currentIndex()]}</p>
+
+{#if loaded()}
+    <div class="fact-panel">
+        <h2>{facts()[currentFact()]?.title}</h2>
+        <p>{facts()[currentFact()]?.description}</p>
+
+        {#if facts()[currentFact()]?.icon}
+            <div class="icon">{facts()[currentFact()]?.icon}</div>
+        {/if}
+
+        <div class="nav-buttons">
+            <button on:click={prevFact}>Previous</button>
+            <button on:click={nextFact}>Next</button>
+        </div>
+    </div>
+
+    {#if unlock()}
+        <div class="unlock-panel">
+            <a href="{base}/interact">🎉 Go to Interactive Page →</a>
+        </div>
+    {/if}
+{:else}
+    <p>Loading facts...</p>
+{/if}
+
+<style>
+    h1.interactive-title {
+        color: #1d411d;
+        font-family: 'Nata Sans', sans-serif;
+        text-align: center;
+        font-size: 55px;
+        transition: color 0.3s ease, transform 0.3s ease;
+        cursor: pointer;
+    }
 
     .interactive-title:hover {
-    fetch(`${base}/facts.json`)
-        .then(res => res.json())
-        .then(data => {
-            facts = data;
-            totalFacts = data.length;
-            loaded = true;
-        });
-
-    interval = setInterval(() => {
-        currentIndex = (currentIndex + 1) % messages.length;
-    }, 3000);
-
-    return () => clearInterval(interval);
-});
-
-function nextFact() {
-    if (totalFacts === 0) return;
-    currentFact = (currentFact + 1) % totalFacts;
-    viewedFacts = new Set(viewedFacts).add(currentFact);
-}
-
-function prevFact() {
-    if (totalFacts === 0) return;
-    currentFact = (currentFact - 1 + totalFacts) % totalFacts;
-    viewedFacts = new Set(viewedFacts).add(currentFact);
-}
-</script>
         color: #467470;
         transform: scale(1.2);
     }
@@ -170,127 +221,4 @@ function prevFact() {
         color: #f0f0f0;
     }
 
-</style>
-
-
-<h1 class="interactive-title">Save the Sea Turtles</h1>
-<p class="heading">{messages[currentIndex]}</p>
-
-{#if loaded}
-    <div class="fact-panel">
-        <h2>{facts[currentFact]?.title}</h2>
-        <p>{facts[currentFact]?.description}</p>
-
-        {#if facts[currentFact]?.icon}
-            <div class="icon">{facts[currentFact].icon}</div>
-        {/if}
-
-        <div class="nav-buttons">
-            <button on:click={prevFact}>Previous</button>
-            <button on:click={nextFact}>Next</button>
-        </div>
-    </div>
-
-    {#if unlock}
-        <div class="unlock-panel">
-            <a href="{base}/interact">🎉 Go to Interactive Page →</a>
-        </div>
-    {/if}
-{:else}
-    <p>Loading facts...</p>
-{/if} -->
-
-<script lang="ts">
-    // ✅ Import runes
-    import { state, derived, onMount } from 'svelte';
-    import { base } from '$app/paths';
-    import Banner from '$lib/banner.svelte';
-
-    const loaded = state(false);
-    const facts = state([{ title: "Loading...", description: "", icon: "", id: 0 }]);
-    const currentFact = state(0);
-    const viewedFacts = state(new Set<number>());
-    const totalFacts = state(0);
-
-    const unlock = derived(() =>
-        viewedFacts().size === totalFacts() && totalFacts() > 0
-    );
-
-    const currentIndex = state(0);
-    const messages = [
-        "All sea turtle species are threatened or endangered.",
-        "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
-        "Plastic pollution is a major threat to sea turtles.",
-        "Fishing nets accidentally trap and drown sea turtles."
-    ];
-
-    let interval: ReturnType<typeof setInterval>;
-
-    onMount(() => {
-        fetch(`${base}/facts.json`)
-            .then(res => res.json())
-            .then(data => {
-                facts.set(data);
-                totalFacts.set(data.length);
-                loaded.set(true);
-            });
-
-        interval = setInterval(() => {
-            currentIndex.update(i => (i + 1) % messages.length);
-        }, 3000);
-
-        return () => clearInterval(interval);
-    });
-
-    function nextFact() {
-        if (totalFacts() === 0) return;
-        const next = (currentFact() + 1) % totalFacts();
-        currentFact.set(next);
-
-        const updated = new Set(viewedFacts());
-        updated.add(next);
-        viewedFacts.set(updated);
-    }
-
-    function prevFact() {
-        if (totalFacts() === 0) return;
-        const prev = (currentFact() - 1 + totalFacts()) % totalFacts();
-        currentFact.set(prev);
-
-        const updated = new Set(viewedFacts());
-        updated.add(prev);
-        viewedFacts.set(updated);
-    }
-</script>
-
-<h1 class="interactive-title">Save the Sea Turtles</h1>
-<p class="heading">{messages[currentIndex()]}</p>
-
-{#if loaded()}
-    <div class="fact-panel">
-        <h2>{facts()[currentFact()]?.title}</h2>
-        <p>{facts()[currentFact()]?.description}</p>
-
-        {#if facts()[currentFact()]?.icon}
-            <div class="icon">{facts()[currentFact()]?.icon}</div>
-        {/if}
-
-        <div class="nav-buttons">
-            <button on:click={prevFact}>Previous</button>
-            <button on:click={nextFact}>Next</button>
-        </div>
-    </div>
-
-    {#if unlock()}
-        <div class="unlock-panel">
-            <a href="{base}/interact">🎉 Go to Interactive Page →</a>
-        </div>
-    {/if}
-{:else}
-    <p>Loading facts...</p>
-{/if}
-
-<style>
-    /* ✅ Keep your styles here as-is */
-    /* ... Your CSS unchanged ... */
 </style>
