@@ -1,79 +1,54 @@
-<script>
-    import { base } from "$app/paths";
-    import { onMount } from "svelte";
+<script lang="ts">
+import { base } from "$app/paths";
+import { onMount } from "svelte";
+import Banner from "$lib/banner.svelte";
 
-    let loaded = false;
-    let facts = [
-        {
-            title: "Loading...",
-            description: "",
-            icon: "",
-            id: 0
-        }
-    ];
-    let currentFact = 0;
-    let totalFacts = 0;
-    let viewedFacts = new Set();
-    let unlock = false;
+let loaded = false;
+$state facts = [
+    { title: "Loading...", description: "", icon: "", id: 0 }
+];
+$state currentFact = 0;
+$state viewedFacts = new Set();
+let totalFacts = 0;
+$derived unlock = viewedFacts.size === totalFacts && totalFacts > 0;
 
-    let currentIndex = 0;
-    let messages = [
-        "All sea turtle species are threatened or endangered.",
-        "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
-        "Plastic pollution is a major threat to sea turtles.",
-        "Fishing nets accidentally trap and drown sea turtles."
-    ];
-    let interval;
-
-    import Banner from "$lib/banner.svelte";
-
-    onMount(() => {
-        fetch(`${base}/facts.json`)
-            .then(res => res.json())
-            .then(data => {
-                facts = data;
-                totalFacts = data.length;
-                loaded = true;
-            });
-
-        interval = setInterval(() => {
-            currentIndex = (currentIndex + 1) % messages.length;
-        }, 3000);
-
-        return () => clearInterval(interval);
-    });
-
-    $: unlock = viewedFacts.size === totalFacts && totalFacts > 0;
-
-    function nextFact() {
-        if (totalFacts === 0) return;
-        currentFact = (currentFact + 1) % totalFacts;
-        viewedFacts.add(currentFact);
-        viewedFacts = new Set(viewedFacts);
-    }
-
-    function prevFact() {
-        if (totalFacts === 0) return;
-        currentFact = (currentFact - 1 + totalFacts) % totalFacts;
-        viewedFacts.add(currentFact);
-        viewedFacts = new Set(viewedFacts);
-    }
-
-</script>
-
-    <Banner />
-
-<style>
-    h1.interactive-title {
-        color: #1d411d;
-        font-family: 'Nata Sans', sans-serif;
-        text-align: center;
-        font-size: 55px;
-        transition: color 0.3s ease, transform 0.3s ease;
-        cursor: pointer;
-    }
+let currentIndex = 0;
+let messages = [
+    "All sea turtle species are threatened or endangered.",
+    "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
+    "Plastic pollution is a major threat to sea turtles.",
+    "Fishing nets accidentally trap and drown sea turtles."
+];
+let interval;
 
     .interactive-title:hover {
+    fetch(`${base}/facts.json`)
+        .then(res => res.json())
+        .then(data => {
+            facts = data;
+            totalFacts = data.length;
+            loaded = true;
+        });
+
+    interval = setInterval(() => {
+        currentIndex = (currentIndex + 1) % messages.length;
+    }, 3000);
+
+    return () => clearInterval(interval);
+});
+
+function nextFact() {
+    if (totalFacts === 0) return;
+    currentFact = (currentFact + 1) % totalFacts;
+    viewedFacts = new Set(viewedFacts).add(currentFact);
+}
+
+function prevFact() {
+    if (totalFacts === 0) return;
+    currentFact = (currentFact - 1 + totalFacts) % totalFacts;
+    viewedFacts = new Set(viewedFacts).add(currentFact);
+}
+</script>
         color: #467470;
         transform: scale(1.2);
     }

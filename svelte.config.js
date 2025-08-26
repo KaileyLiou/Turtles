@@ -4,6 +4,7 @@ import adapter from '@sveltejs/adapter-static';
 
 const dev = process.env.NODE_ENV === 'development';
 
+
 const config = {
   kit: {
     adapter: adapter({
@@ -12,6 +13,9 @@ const config = {
     paths: {
       base: dev ? '' : '/Turtles'
     }
+  },
+  compilerOptions: {
+    runes: true
   }
 };
 
