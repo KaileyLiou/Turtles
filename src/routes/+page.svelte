@@ -36,7 +36,14 @@
       currentIndex.set(($currentIndex + 1) % messages.length);
     }, 3000);
 
-    return () => clearInterval(interval);
+    window.addEventListener('mousemove', handleMouseMove);
+    animateTurtle();
+
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animationFrame);
+    };
   });
 
   function nextFact() {
@@ -58,6 +65,24 @@
     updated.add(prev);
     viewedFacts.set(updated);
   }
+
+    let turtleX = 0;
+    let turtleY = 0;
+    let mouseX = 0;
+    let mouseY = 0;
+    let animationFrame;
+
+    function handleMouseMove(event) {
+        mouseX = event.clientX;
+        mouseY = event.clientY;
+    }
+
+    function animateTurtle() {
+        turtleX += (mouseX - turtleX) * 0.05;
+        turtleY += (mouseY - turtleY) * 0.05;
+        animationFrame = requestAnimationFrame(animateTurtle);
+    }
+  
 </script>
 
 <h1 class="interactive-title">Save the Sea Turtles</h1>
