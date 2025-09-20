@@ -180,10 +180,6 @@
         {/each}
     </div>
 
-    <p style="text-align: center;">
-    You found <strong>{$turtleCount}</strong> turtle(s) today!
-    </p>
-
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>
         <div class="options">
