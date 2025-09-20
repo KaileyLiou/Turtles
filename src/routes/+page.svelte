@@ -97,6 +97,8 @@
 <h1 class="interactive-title">Save the Sea Turtles</h1>
 <p class="heading">{messages[$currentIndex]}</p>
 
+<h2>HELLO THIS IS A TEST</h2>
+
 {#if $loaded}
   <div class="fact-panel">
     <h2>{ $facts[$currentFact]?.title }</h2>
