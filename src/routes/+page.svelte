@@ -1,21 +1,21 @@
 <script lang="ts">
-  import { state, derived, onMount } from 'svelte/runes';
-  import { base } from '$app/paths';
+  import { onMount } from 'svelte';
+  import { writable, derived } from 'svelte/store';
+  import { get } from 'svelte/store';
 
-  const loaded = state(false);
+  const loaded = writable(false);
+  const facts = writable([{ title: "Loading...", description: "", icon: "", id: 0 }]);
+  const currentFact = writable(0);
+  const viewedFacts = writable(new Set<number>());
+  const totalFacts = writable(0);
+  const turtleCount = writable(1);
+  const currentIndex = writable(0);
 
-  const facts = state([{ title: "Loading...", description: "", icon: "", id: 0 }]);
-  const currentFact = state(0);
-  const viewedFacts = state(new Set<number>());
-  const totalFacts = state(0);
-
-  const turtleCount = state(1);
-
-  const unlock = derived(() => 
-    $viewedFacts.size === $totalFacts && $totalFacts > 0
+  const unlock = derived(
+    [viewedFacts, totalFacts],
+    ([$viewedFacts, $totalFacts]) => $viewedFacts.size === $totalFacts && $totalFacts > 0
   );
 
-  const currentIndex = state(0);
   const messages = [
     "All sea turtle species are threatened or endangered.",
     "Only about 1 in 1,000 to 1 in 10,000 sea turtle hatchlings survive to adulthood.",
@@ -35,62 +35,41 @@
       });
 
     interval = setInterval(() => {
-      currentIndex.set(($currentIndex + 1) % messages.length);
+      currentIndex.update(n => (n + 1) % messages.length);
     }, 3000);
-
-    window.addEventListener('mousemove', handleMouseMove);
-    animateTurtle();
 
     turtleCount.set(Math.floor(Math.random() * 3) + 1);
 
-    console.log("Random turtle count:", $turtleCount);
-
     return () => {
       clearInterval(interval);
-      window.removeEventListener('mousemove', handleMouseMove);
-      cancelAnimationFrame(animationFrame);
     };
   });
 
   function nextFact() {
-    if ($totalFacts === 0) return;
-    const next = ($currentFact + 1) % $totalFacts;
+    let total, current;
+    totalFacts.subscribe(v => total = v)();
+    currentFact.subscribe(v => current = v)();
+    if (total === 0) return;
+    const next = (current + 1) % total;
     currentFact.set(next);
-
-    const updated = new Set($viewedFacts);
-    updated.add(next);
-    viewedFacts.set(updated);
+    viewedFacts.update(set => {
+      set.add(next);
+      return set;
+    });
   }
 
   function prevFact() {
-    if ($totalFacts === 0) return;
-    const prev = ($currentFact - 1 + $totalFacts) % $totalFacts;
+    let total, current;
+    totalFacts.subscribe(v => total = v)();
+    currentFact.subscribe(v => current = v)();
+    if (total === 0) return;
+    const prev = (current - 1 + total) % total;
     currentFact.set(prev);
-
-    const updated = new Set($viewedFacts);
-    updated.add(prev);
-    viewedFacts.set(updated);
+    viewedFacts.update(set => {
+      set.add(prev);
+      return set;
+    });
   }
-
-    const turtleX = state(0);
-    const turtleY = state(0);
-    let mouseX = 0;
-    let mouseY = 0;
-    let animationFrame;
-
-    function handleMouseMove(event) {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-    }
-
-    let clicked = false;
-
-    function turtleClicked() {
-      clicked = true;
-      setTimeout(() => {
-        clicked = false;
-      }, 500);
-    }
   
 </script>
 
@@ -109,8 +88,8 @@
     {/if}
 
     <div class="nav-buttons">
-      <button on:click={prevFact}>Previous</button>
-      <button on:click={nextFact}>Next</button>
+    <button onclick={prevFact}>Previous</button>
+    <button onclick={nextFact}>Next</button>
     </div>
   </div>
 

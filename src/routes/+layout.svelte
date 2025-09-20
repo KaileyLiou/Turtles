@@ -7,4 +7,4 @@
 </svelte:head>
 
 
-<slot />
+{@render content}
