@@ -77,18 +77,13 @@
         mouseY = event.clientY;
     }
 
-    function animateTurtle() {
-        turtleX.set($turtleX + (mouseX - $turtleX) * 0.05);
-        turtleY.set($turtleY + (mouseY - $turtleY) * 0.05);
-        animationFrame = requestAnimationFrame(animateTurtle);
-    }
+    let clicked = false;
 
     function turtleClicked() {
-      const turtle = document.querySelector('.turtle-graphic');
-      if (turtle) {
-        turtle.classList.add('clicked');
-        setTimeout(() => turtle.classList.remove('clicked'), 800);
-      }
+      clicked = true;
+      setTimeout(() => {
+        clicked = false;
+      }, 500);
     }
   
 </script>

@@ -154,6 +154,14 @@
         animation: turtlePop 0.8s ease;
     }
 
+    @keyframes turtleWiggle {
+        0%   { transform: scale(1) rotate(0deg); }
+        30%  { transform: scale(1.2) rotate(5deg); }
+        60%  { transform: scale(0.95) rotate(-5deg); }
+        100% { transform: scale(1) rotate(0deg); }
+    }
+
+
 </style>
 
 
@@ -164,11 +172,11 @@
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
     <div class="turtle-div">
+
     <img 
         src="/Turtles/turtle.png" 
         alt="Turtle" 
-        class="turtle-graphic" 
-        style="--turtle-x: {$turtleX}px; --turtle-y: {$turtleY}px;"
+        class="turtle-graphic {clicked ? 'clicked' : ''}" 
         on:click={turtleClicked}
     />
     </div>
