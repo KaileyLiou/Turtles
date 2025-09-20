@@ -43,6 +43,8 @@
 
     turtleCount.set(Math.floor(Math.random() * 3) + 1);
 
+    console.log("Random turtle count:", $turtleCount);
+
     return () => {
       clearInterval(interval);
       window.removeEventListener('mousemove', handleMouseMove);
