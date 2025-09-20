@@ -66,8 +66,8 @@
     viewedFacts.set(updated);
   }
 
-    let turtleX = 0;
-    let turtleY = 0;
+    const turtleX = state(0);
+    const turtleY = state(0);
     let mouseX = 0;
     let mouseY = 0;
     let animationFrame;
@@ -78,8 +78,8 @@
     }
 
     function animateTurtle() {
-        turtleX += (mouseX - turtleX) * 0.05;
-        turtleY += (mouseY - turtleY) * 0.05;
+        turtleX.set($turtleX + (mouseX - $turtleX) * 0.05);
+        turtleY.set($turtleY + (mouseY - $turtleY) * 0.05);
         animationFrame = requestAnimationFrame(animateTurtle);
     }
   

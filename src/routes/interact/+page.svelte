@@ -151,7 +151,7 @@
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
     <div class="turtle-div">
-        <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic" style="transform: translate({turtleX}px, {turtleY}px);"/>
+        <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic" style="transform: translate({$turtleX}px, {$turtleY}px);"/>
     </div>
 
     {#if step < quizQuestions.length}
