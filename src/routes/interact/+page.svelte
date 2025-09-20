@@ -114,6 +114,8 @@
         display: block;
         animation: swim 3s ease-in-out infinite alternate;
         transition: transform 0.3s ease, filter 0.3s ease;
+        transform: translate(var(--turtle-x, 0px), var(--turtle-y, 0px));
+
     }
 
     .turtle-graphic:hover {
@@ -162,13 +164,13 @@
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
     <div class="turtle-div">
-        <img 
-            src="/Turtles/turtle.png" 
-            alt="Turtle" 
-            class="turtle-graphic" 
-            style="transform: translate({$turtleX}px, {$turtleY}px);"
-            on:click={turtleClicked}
-        />
+    <img 
+        src="/Turtles/turtle.png" 
+        alt="Turtle" 
+        class="turtle-graphic" 
+        style="--turtle-x: {$turtleX}px; --turtle-y: {$turtleY}px;"
+        on:click={turtleClicked}
+    />
     </div>
 
     {#if step < quizQuestions.length}
