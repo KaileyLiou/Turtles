@@ -141,6 +141,17 @@
         font-weight: bold;
     }
 
+    @keyframes turtlePop {
+        0%   { transform: scale(1) rotate(0deg); }
+        30%  { transform: scale(1.4) rotate(10deg); }
+        60%  { transform: scale(0.9) rotate(-5deg); }
+        100% { transform: scale(1) rotate(0deg); }
+    }
+
+    .turtle-graphic.clicked {
+        animation: turtlePop 0.8s ease;
+    }
+
 </style>
 
 
@@ -151,7 +162,13 @@
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
     <div class="turtle-div">
-        <img src="/Turtles/turtle.png" alt="Turtle" class="turtle-graphic" style="transform: translate({$turtleX}px, {$turtleY}px);"/>
+        <img 
+            src="/Turtles/turtle.png" 
+            alt="Turtle" 
+            class="turtle-graphic" 
+            style="transform: translate({$turtleX}px, {$turtleY}px);"
+            on:click={turtleClicked}
+        />
     </div>
 
     {#if step < quizQuestions.length}
