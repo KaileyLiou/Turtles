@@ -114,13 +114,19 @@
         display: block;
         animation: swim 3s ease-in-out infinite alternate;
         transition: transform 0.3s ease, filter 0.3s ease;
-        transform: translate(var(--turtle-x, 0px), var(--turtle-y, 0px));
-
     }
 
     .turtle-graphic:hover {
         transform: scale(2);
         filter: brightness(1.5);
+    }
+
+    .turtle-row {
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+        margin: 20px 0;
+        flex-wrap: wrap;
     }
 
     @keyframes swim {
@@ -154,14 +160,6 @@
         animation: turtlePop 0.8s ease;
     }
 
-    @keyframes turtleWiggle {
-        0%   { transform: scale(1) rotate(0deg); }
-        30%  { transform: scale(1.2) rotate(5deg); }
-        60%  { transform: scale(0.95) rotate(-5deg); }
-        100% { transform: scale(1) rotate(0deg); }
-    }
-
-
 </style>
 
 
@@ -171,15 +169,20 @@
 
 <div class="container">
     <h1>Sea Turtle Quiz</h1>
-    <div class="turtle-div">
-
-    <img 
-        src="/Turtles/turtle.png" 
-        alt="Turtle" 
-        class="turtle-graphic {clicked ? 'clicked' : ''}" 
-        on:click={turtleClicked}
-    />
+    <div class="turtle-row">
+        {#each Array($turtleCount) as _, i}
+            <img 
+                src="/Turtles/turtle.png" 
+                alt="Turtle {i + 1}" 
+                class="turtle-graphic {clicked ? 'clicked' : ''}" 
+                on:click={turtleClicked}
+            />  
+        {/each}
     </div>
+
+    <p style="text-align: center;">
+    You found <strong>{$turtleCount}</strong> turtle(s) today!
+    </p>
 
     {#if step < quizQuestions.length}
         <h2>{quizQuestions[step].question}</h2>

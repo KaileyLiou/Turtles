@@ -9,6 +9,8 @@
   const viewedFacts = state(new Set<number>());
   const totalFacts = state(0);
 
+  const turtleCount = state(1);
+
   const unlock = derived(() => 
     $viewedFacts.size === $totalFacts && $totalFacts > 0
   );
@@ -38,6 +40,8 @@
 
     window.addEventListener('mousemove', handleMouseMove);
     animateTurtle();
+
+    turtleCount.set(Math.floor(Math.random() * 3) + 1);
 
     return () => {
       clearInterval(interval);
