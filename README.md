@@ -10,4 +10,6 @@ The random chance rare event I incorporated in my project is confetti. If a user
 
 My project is also responsive and works on mobile devices.
 
+I struggled with using SvelteKit to code and ran into several errors that took a lot of time to debug.
+
 https://kaileyliou.github.io/Turtles/
