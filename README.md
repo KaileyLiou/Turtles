@@ -13,3 +13,5 @@ My project is also responsive and works on mobile devices.
 I struggled with using SvelteKit to code and ran into several errors that took a lot of time to debug.
 
 https://kaileyliou.github.io/Turtles/
+
+<img width="1700" height="892" alt="Turtles Website" src="https://github.com/user-attachments/assets/045a5eea-5e15-4634-9ad5-d76de9a227b6" />
